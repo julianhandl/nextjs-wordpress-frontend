@@ -197,14 +197,27 @@ query MyQuery($uri: ID!) {
 }
 `;
 
+const categoryQuery = `
+query MyQuery($uri: ID!) {
+	${baseQuery}
+	${postCategoryQuery}
+}
+`;
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { path } = params;
 	const uriString = typeof path === "string" ? path : path.join("/");
 	const uri = `/${uriString}/`;
 
-	console.log("FETCH");
-	const result = await fetchAPI<BaseQuery<Query>>(query, { uri });
-	console.log("RESULT", result);
+	let result;
+
+	try {
+		// try to catch normal page or post
+		result = await fetchAPI<BaseQuery<Query>>(query, { uri });
+	}
+	catch(err) {
+		result = {};
+	}
 
 	/*
 if (result.page?.isPostsPage) {

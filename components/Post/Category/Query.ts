@@ -1,20 +1,13 @@
 import { SEOBlock } from "../../../common/types/SEOBlock";
 
 export interface PostCategoryQuery {
-	title: string;
-	content: string;
-	isPostsPage: boolean;
+	name: string;
 	seo: SEOBlock;
-	template: {
-		templateName: string;
-	}
 }
 
-export const PostCategoryQuery = `
-    page(id: $uri, idType: URI) {
-		title
-		content(format: RENDERED)
-		isPostsPage
+export const postCategoryQuery = `
+	category(id: $uri, idType: URI) {
+		name
 		seo {
 			title
 			canonical
@@ -23,8 +16,21 @@ export const PostCategoryQuery = `
 			opengraphType
 			opengraphDescription
 		}
-		template {
-			templateName
-        }
-    }
+		posts {
+			nodes {
+				uri
+				title
+				excerpt(format: RENDERED)
+				featuredImage {
+					node {
+						sourceUrl
+						mediaDetails {
+							height
+							width
+						}
+					}
+				}
+			}
+		}
+	}
 `
