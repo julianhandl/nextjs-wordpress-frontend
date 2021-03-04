@@ -54,7 +54,7 @@ export default function Page(props: Props) {
 	}
 	else if (result) {
 		// Posts Category
-		return <div>TEST</div>
+		return <div>Category</div>
 	}
 	else {
 		// Error
@@ -202,7 +202,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const uriString = typeof path === "string" ? path : path.join("/");
 	const uri = `/${uriString}/`;
 
+	console.log("FETCH");
 	const result = await fetchAPI<BaseQuery<Query>>(query, { uri });
+	console.log("RESULT", result);
 
 	/*
 if (result.page?.isPostsPage) {
@@ -262,6 +264,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 					uri
 				}
 			}
+			categories(first: 1000) {
+				nodes {
+					uri
+				}
+			}
 		}
 	`;
 	const result = await fetchAPI<AllPagesAndPostQuery>(query);
@@ -284,10 +291,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		? result.posts.nodes.map(e => e.uri)
 		: [];
 
+	const categoryUris = result.categories.nodes
+		? result.categories.nodes.map(e => e.uri)
+		: [];
+
 	return {
 		paths: [
 			...pageUris,
 			...postUris,
+			...categoryUris,
 		],
 		fallback: true
 	}
