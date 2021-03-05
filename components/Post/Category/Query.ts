@@ -3,6 +3,22 @@ import { SEOBlock } from "../../../common/types/SEOBlock";
 export interface PostCategoryQuery {
 	name: string;
 	seo: SEOBlock;
+	posts: {
+		nodes: {
+			uri: string;
+			title: string;
+			excerpt: string;
+			featuredImage: {
+				node: {
+					sourceUrl: string;
+					mediaDetails: {
+						height: number;
+						width: number;
+					}
+				}
+			}
+		}[]
+	}
 }
 
 export const postCategoryQuery = `

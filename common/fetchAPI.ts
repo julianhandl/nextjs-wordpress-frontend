@@ -47,7 +47,6 @@ export async function fetchAPI<T>(query: string, variables: any = {}): Promise<T
     // error handling work
     const json = await res.json();
     if (json.errors) {
-        console.log('error details', query, variables);
         throw new Error(JSON.stringify(json.errors));
     }
     return json.data;

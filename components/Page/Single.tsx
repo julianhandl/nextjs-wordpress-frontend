@@ -18,23 +18,6 @@ export interface PageSingleQuery {
 	}
 }
 
-export const pageSingleQuery = `
-    page(id: $uri, idType: URI) {
-		title
-		content(format: RENDERED)
-		isPostsPage
-		contentType {
-			node {
-				hierarchical
-			}
-		}
-		${seoBlockQuery}
-		template {
-			templateName
-		}
-    }
-`
-
 interface PageSingleProps {
 	page: PageSingleQuery;
 	menus: MenuMap

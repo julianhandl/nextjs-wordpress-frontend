@@ -1,3 +1,5 @@
+import { seoBlockQuery } from "../../common/types/SEOBlock";
+
 export interface PostsQuery {
     nodes: {
         uri: string;
@@ -22,46 +24,27 @@ export interface PostsQuery {
     }[]
 }
 
-export interface PostPageQuery {
-    posts: PostsQuery;
-    categories: {
-        nodes: {
-            name: string;
-            uri: string;
-        }[]
-    }
-}
-
-export const PostPageQuery = `
-query MyQuery {
-    posts {
-        nodes {
-            uri
-            categories {
-                nodes {
-                    name
-                    uri
-                }
-            }
-            excerpt(format: RENDERED)
-            title
-            modified
-            featuredImage {
-                node {
-                    sourceUrl
-                    mediaDetails {
-                        width
-                        height
-                    }
-                }
-            }
-        }
-    }
-    categories {
-		nodes {
-			name
-			uri
+export const postSingleQuery = `
+    post(id: $uri, idType: URI) {
+		title
+		excerpt(format: RENDERED)
+		content(format: RENDERED)
+		modified
+		${seoBlockQuery}
+		categories {
+			nodes {
+				uri
+				name
+			}
 		}
-	}
-}
+		featuredImage {
+			node {
+				sourceUrl
+				mediaDetails {
+					width
+					height
+				}
+			}
+		}
+    }
 `

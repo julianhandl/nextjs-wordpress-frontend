@@ -26,49 +26,26 @@ export interface PostSingleQuery {
 	}
 }
 
-export const postSingleQuery = `
-    post(id: $uri, idType: URI) {
-		title
-		excerpt(format: RENDERED)
-		content(format: RENDERED)
-		modified
-		${seoBlockQuery}
-		categories {
-			nodes {
-				uri
-				name
-			}
-		}
-		featuredImage {
-			node {
-				sourceUrl
-				mediaDetails {
-					width
-					height
-				}
-			}
-		}
-    }
-`
 
 interface PostSingleProps {
-    post: PostSingleQuery;
-    menus: MenuMap
-    uri: string;
+	post: PostSingleQuery;
+	menus: MenuMap
+	uri: string;
 }
 
 const PostSingle: React.FC<PostSingleProps> = ({
-    post,
-    menus,
+	post,
+	menus,
 	uri,
 }) => {
-    return <>
-        <Header menu={menus["MAIN_MENU"]} uri={uri} />
-        <article>
-            <h1>{post.title}</h1>
-            <div dangerouslySetInnerHTML={{__html: post.content}}></div>
-        </article>
-    </>
+	return <>
+		<Header menu={menus["MAIN_MENU"]} uri={uri} />
+		<article>
+			<h1>{post.title}</h1>
+			{post.excerpt ? <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div> : null}
+			<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+		</article>
+	</>
 }
 
 export default PostSingle;

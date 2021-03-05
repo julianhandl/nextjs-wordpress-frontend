@@ -12,11 +12,10 @@ const Header: React.FC<HeaderProps> = ({
     uri,
 }) => {
     return <header>
-        <div>LOGO</div>
+        <Link href="/">
+            <a href="/">HOME</a>
+        </Link>
         <div>
-            <Link href="/">
-                <a href="/">Home</a>
-            </Link>
             {menu?.menuItems.nodes.length > 0
                 ? <nav>
                     <ul>

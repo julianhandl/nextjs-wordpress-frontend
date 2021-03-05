@@ -1,42 +1,28 @@
-import Head from 'next/head'
+import React from "react";
 import { GetStaticProps } from 'next'
-import {
-	generateGroupBasic
-} from "react-seo-aio";
-import Footer from '../components/Footer/Footer';
-import { Query } from './[...path]';
+import ErrorPage from 'next/error';
+import { fetchAPI, BaseQuery, baseQuery } from '../common/fetchAPI'
+import { PostSingleQuery } from '../components/Post/Single';
+import { pageQuery } from '../components/Page/Query';
+import { MenuMap } from '../common/types/Menu';
+import PageSingle, { PageSingleQuery } from "../components/Page/Single";
+import { PostCategoryQuery } from "../components/Post/Category/Query";
+import { PostPageQuery, postPageQuery, PostPageCategoryList } from "../components/Post/Page/Query";
+import PostsPage from "../components/Post/Page/Page";
+import { PostsQuery, postSingleQuery } from "../components/Post/Query";
 
-/*
-
-const query = `
-query MyQuery($uri: String) {
-	${baseQuery}
-	pageBy(uri: $uri) {
-		title,
-		seo {
-			title
-			canonical
-			metaDesc
-			opengraphTitle
-			opengraphType
-			opengraphDescription
-		}
-		${IntroQuery}
-		${LandingPageQuery}
-	}
-}
-`;
 
 interface Props {
-	result: BaseQuery<Query>;
+	result?: BaseQuery<Query>;
 	uri: string;
+	posts?: PostsQuery;
+	categories?: PostPageCategoryList;
 }
 
-export default function Home(props: Props) {
+export default function Page(props: Props) {
 	const result = props.result;
 
-	const menus: { [key: string]: MenuNode } = {};
-
+	const menus: MenuMap = {};
 	if (result?.menus?.nodes) {
 		result.menus.nodes.forEach(n => {
 			n.locations.forEach(l => {
@@ -45,48 +31,69 @@ export default function Home(props: Props) {
 		});
 	}
 
-	const seo = result?.pageBy.seo;
-	let seoBlocks = [];
-	if (seo) {
-		seoBlocks.push(generateGroupBasic({
-			title: seo.title,
-			description: seo.metaDesc,
-			locale: "de-AT",
-		}));
+	if (result.page?.isPostsPage && props.categories) {
+		// Posts Page
+		return <PostsPage
+			page={result.page}
+			posts={props.posts}
+			categories={props.categories}
+			uri={props.uri}
+			menus={menus}
+		/>
 	}
-
-	return (
-		<div className={""}>
-			<Head>
-				<link rel="icon" href="/favicon.ico" />
-				{seoBlocks}
-			</Head>
-			<main className={""}>
-				<LandingPage menus={menus} pageBy={result.pageBy} uri={props.uri} />
-				<Footer
-					menu1={menus["FOOTER_MENU_1"]}
-					menu2={menus["FOOTER_MENU_2"]}
-					menu3={menus["FOOTER_MENU_3"]}
-					menu4={menus["FOOTER_MENU_4"]}
-					bottomLine={menus["FOOTER_MENU_BOTTOM"]}
-				/>
-			</main>
-		</div>
-	)
+	else if (result.page) {
+		// Page
+		return <PageSingle
+			page={result.page}
+			menus={menus}
+			uri={props.uri}
+		/>
+	}
+	else {
+		// Error
+		return <ErrorPage statusCode={404} />
+	}
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-	const result = await fetchAPI(query, { uri: "/" });
+export interface Query {
+	page?: PageSingleQuery;
+	post?: PostSingleQuery;
+	category?: PostCategoryQuery;
+}
 
-	return {
-		props: {
-			result,
-			uri: "/"
+const query = `
+query MyQuery($uri: ID!) {
+	${baseQuery}
+	${pageQuery}
+	${postSingleQuery}
+}
+`;
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+	const uri = "/";
+
+	let result = await fetchAPI<BaseQuery<Query>>(query, { uri });;
+
+	if (result.page?.isPostsPage) {
+		// blogpage
+		const blogResult = await fetchAPI<PostPageQuery>(postPageQuery);
+		return {
+			props: {
+				...blogResult,
+				result,
+				uri
+			},
+			revalidate: 1
 		}
 	}
-}
-*/
-
-export default function Home() {
-	return <div>INDEX</div>
+	else {
+		// normal page or post
+		return {
+			props: {
+				result,
+				uri
+			},
+			revalidate: 1
+		}
+	}
 }
