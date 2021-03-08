@@ -1,6 +1,14 @@
 # Next.js Wordpress Frontend
 A preconfigured [Next.js](https://nextjs.org/) setup to be used as frontend for a Wordpress website.
 
+## Supports
+- Pages
+- Posts
+- Categories
+- Frontpage
+- Postspage
+- Sitemap
+
 ## Quickstart
 
 ### Requirements
@@ -15,11 +23,13 @@ To start things of you have to create a ```.env.local``` file at the root of thi
 
 Specify the following variables:
 - ```WP_URL```: The full adress of your wordpress instance
+- ```DOMAIN```: The domain of your frontend 
 
 The file might look like this:
 ```
 
 WP_URL=https://yourwordpressinstance.com
+DOMAIN=https://yourdomain.com
 
 ```
 

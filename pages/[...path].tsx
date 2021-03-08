@@ -202,6 +202,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	return {
 		paths: [
+			"/",
 			...pageUris,
 			...postUris,
 			...categoryUris,
