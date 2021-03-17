@@ -31,17 +31,17 @@ export default function Page(props: Props) {
 		});
 	}
 
-	if (result.page?.isPostsPage && props.categories) {
+	if (result?.page?.isPostsPage && props.categories) {
 		// Posts Page
 		return <PostsPage
 			page={result.page}
-			posts={props.posts}
+			posts={props.posts || {nodes: []}}
 			categories={props.categories}
 			uri={props.uri}
 			menus={menus}
 		/>
 	}
-	else if (result.page) {
+	else if (result?.page) {
 		// Page
 		return <PageSingle
 			page={result.page}

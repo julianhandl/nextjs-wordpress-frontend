@@ -33,7 +33,7 @@ const PageSingle: React.FC<PageSingleProps> = ({
 		<Header menu={menus["MAIN_MENU"]} uri={uri} />
 		<article>
 			<h1>{page.title}</h1>
-			<div dangerouslySetInnerHTML={{ __html: page.content }}></div>
+			{page.content ? <div dangerouslySetInnerHTML={{ __html: page.content }}></div> : null}
 		</article>
 	</>
 }

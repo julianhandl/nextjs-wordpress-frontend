@@ -19,7 +19,7 @@ interface AllPagesAndPostQuery {
     }
 }
 
-export default async (req, res) => {
+export default async (req: any, res: any) => {
     const query = `
 		query MyQuery {
 			pages(first: 1000) {

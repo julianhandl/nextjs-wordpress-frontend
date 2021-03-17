@@ -42,8 +42,8 @@ const PostSingle: React.FC<PostSingleProps> = ({
 		<Header menu={menus["MAIN_MENU"]} uri={uri} />
 		<article>
 			<h1>{post.title}</h1>
-			{post.excerpt ? <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div> : null}
-			<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+			{post.excerpt ? <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div> : null}
+			{post.content ? <div dangerouslySetInnerHTML={{ __html: post.content }}></div> : null}
 		</article>
 	</>
 }

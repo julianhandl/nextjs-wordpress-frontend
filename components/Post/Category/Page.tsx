@@ -1,6 +1,5 @@
 import React from "react";
 import { MenuMap } from "../../../common/types/Menu";
-import { CategoryNodeByUri } from "../../../pages/basbasdf/[category]";
 import Header from "../../Header/Header";
 import { PostCategoryQuery } from "./Query";
 

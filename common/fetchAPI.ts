@@ -25,7 +25,7 @@ generalSettings {
 menus {
     nodes {
         slug
-        menuItems {
+        menuItems(first: 1000) {
             nodes {
                 label
                 path
