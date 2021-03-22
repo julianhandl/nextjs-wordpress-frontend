@@ -10,7 +10,7 @@ A preconfigured [Next.js](https://nextjs.org/) setup to be used as frontend for 
 - Sitemap
 
 ## Support for paths links, images, ... inside WYSIWYG editors
-All links for pages work like expected but links and images that were added inside an editor do not get parsed and replaces.
+All links for pages work like expected but links and images that were added inside an editor do not get parsed and replaced.
 
 Use a wordpress plugin like this one: [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/) to make all paths root-relative.
 
@@ -25,7 +25,7 @@ For this to work you need:
 - the plugin [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/) installed
 - the plugin [WPGraphQL Yoast SEO Addon](https://wordpress.org/plugins/wordpress-seo/) installed
 
-## Optional but reccomended
+#### Optional but reccomended
 - [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/)
 
 ### Environment variables
