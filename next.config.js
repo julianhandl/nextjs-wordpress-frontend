@@ -4,6 +4,9 @@ module.exports = {
             {
                 source: '/sitemap.xml',
                 destination: '/api/sitemap'
+            },{
+                source: '/wp-content/:path*',
+                destination: `${process.env.WP_URL}/wp-content/:path*`
             }
         ];
     }
