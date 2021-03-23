@@ -26,8 +26,8 @@ For this to work you need:
 - the plugin [WPGraphQL Yoast SEO Addon](https://wordpress.org/plugins/wordpress-seo/) installed
 
 #### Optional but recommended
-- [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/)
-- [The matching wordpress theme for this setup](https://github.com/julianhandl/Nextjs-Wordpress-Theme)
+- the plugin [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/) installed
+- [The matching wordpress theme for this setup](https://github.com/julianhandl/Nextjs-Wordpress-Theme) installed
 
 ### Environment variables
 To start things of you have to create a ```.env.local``` file at the root of this setup.
