@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../Header/Header";
 import { SEOBlock, seoBlockQuery } from "../../common/types/SEOBlock";
 import { MenuMap } from "../../common/types/Menu";
+import Footer from "../Footer/Footer";
 
 export interface PageSingleQuery {
 	title: string;
@@ -35,6 +36,12 @@ const PageSingle: React.FC<PageSingleProps> = ({
 			<h1>{page.title}</h1>
 			{page.content ? <div dangerouslySetInnerHTML={{ __html: page.content }}></div> : null}
 		</article>
+        <Footer
+            menu1={menus["FOOTER_MENU_1"]}
+            menu2={menus["FOOTER_MENU_2"]}
+            menu3={menus["FOOTER_MENU_3"]}
+            menu4={menus["FOOTER_MENU_4"]}
+        />
 	</>
 }
 

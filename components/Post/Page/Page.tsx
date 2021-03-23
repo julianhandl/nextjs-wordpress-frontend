@@ -3,6 +3,7 @@ import { PostPageQuery } from "./Query";
 import { MenuMap } from "../../../common/types/Menu";
 import Header from "../../Header/Header";
 import { PageSingleQuery } from "../../Page/Single";
+import Footer from "../../Footer/Footer";
 
 interface PostsPageProps extends PostPageQuery {
     page: PageSingleQuery;
@@ -38,6 +39,12 @@ const PostsPage: React.FC<PostsPageProps> = ({
                 : <div>No posts found</div>
             }
         </section>
+        <Footer
+            menu1={menus["FOOTER_MENU_1"]}
+            menu2={menus["FOOTER_MENU_2"]}
+            menu3={menus["FOOTER_MENU_3"]}
+            menu4={menus["FOOTER_MENU_4"]}
+        />
     </>
 }
 

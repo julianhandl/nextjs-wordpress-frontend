@@ -1,5 +1,6 @@
 import React from "react";
 import { MenuMap } from "../../../common/types/Menu";
+import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
 import { PostCategoryQuery } from "./Query";
 
@@ -27,6 +28,12 @@ const PostCategoryPage: React.FC<PostCategoryProps> = ({
                 : <div>No posts found</div>
             }
         </section>
+        <Footer
+            menu1={menus["FOOTER_MENU_1"]}
+            menu2={menus["FOOTER_MENU_2"]}
+            menu3={menus["FOOTER_MENU_3"]}
+            menu4={menus["FOOTER_MENU_4"]}
+        />
     </>
 }
 
