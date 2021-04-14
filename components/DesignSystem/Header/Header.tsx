@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { MenuNode } from "../../driver/fetchAPI";
+import { MenuNode } from "../../common/types/Menu";
 
 export interface HeaderProps {
     menu?: MenuNode,
@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({
             <a href="/">HOME</a>
         </Link>
         <div>
-            {menu?.menuItems.nodes.length > 0
+            {menu?.menuItems?.nodes && menu?.menuItems?.nodes.length > 0
                 ? <nav>
                     <ul>
                         {menu.menuItems.nodes.map(item => {

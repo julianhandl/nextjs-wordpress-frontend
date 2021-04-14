@@ -40,7 +40,7 @@ export default function Page(props: Props) {
 		// Posts Page
 		return <PostsPage
 			page={result.page}
-			posts={props.posts}
+			posts={props.posts || {nodes: []}}
 			categories={props.categories}
 			uri={props.uri}
 			menus={menus}
@@ -98,7 +98,7 @@ query MyQuery($uri: ID!) {
 `;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const { path } = params;
+	const path = params?.path || "";
 	const uriString = typeof path === "string" ? path : path.join("/");
 	const uri = `/${uriString}/`;
 

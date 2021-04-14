@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../DesignSystem/Header/Header";
-import { SEOBlock, seoBlockQuery } from "../../common/types/SEOBlock";
+import { SEOBlock } from "../../common/types/SEOBlock";
 import { MenuMap } from "../../common/types/Menu";
 import Footer from "../DesignSystem/Footer/Footer";
 import WordpressContent from "../DesignSystem/Wordpress/Content/Content";
@@ -45,9 +45,14 @@ const PostSingle: React.FC<PostSingleProps> = ({
 		<article>
 			<h1>{post.title}</h1>
 			{post.excerpt ? <WordpressContent content={post.excerpt} /> : null}
-			<WordpressContent content={post.content} />
+			{post.content ? <WordpressContent content={post.content} /> : null}
 		</article>
-		<Footer />
+		<Footer
+			menu1={menus["FOOTER_MENU_1"]}
+			menu2={menus["FOOTER_MENU_2"]}
+			menu3={menus["FOOTER_MENU_3"]}
+			menu4={menus["FOOTER_MENU_4"]}
+		/>
 	</>
 }
 

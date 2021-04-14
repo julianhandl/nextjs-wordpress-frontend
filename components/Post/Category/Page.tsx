@@ -33,7 +33,12 @@ const PostCategoryPage: React.FC<PostCategoryProps> = ({
                 : <div>No posts found</div>
             }
         </section>
-        <Footer />
+        <Footer
+            menu1={menus["FOOTER_MENU_1"]}
+            menu2={menus["FOOTER_MENU_2"]}
+            menu3={menus["FOOTER_MENU_3"]}
+            menu4={menus["FOOTER_MENU_4"]}
+        />
     </>
 }
 

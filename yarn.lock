@@ -1268,6 +1268,7 @@ react-refresh@0.8.3:
 react-seo-aio@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-seo-aio/-/react-seo-aio-3.0.1.tgz#b71680bb0b4cfeed56fbc5126892fff827c2bc44"
+  integrity sha512-PbPisX6OgbTqQr5FN0Fpd+53AmyKRJdlshz9zw3RXrEOEj9IPy5FGkfGiYONNqkQ+JZ33i+DCxuYBkmGa37GbQ==
 
 react@17.0.1:
   version "17.0.1"

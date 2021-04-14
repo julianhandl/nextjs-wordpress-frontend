@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { MenuNode } from "../../driver/fetchAPI";
+import { MenuNode } from "../../common/types/Menu";
 
 interface Props {
     menu1?: MenuNode
