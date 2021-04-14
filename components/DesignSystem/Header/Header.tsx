@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { MenuNode } from "../../common/types/Menu";
+import { MenuNode } from "../../../common/types/Menu";
 
 export interface HeaderProps {
     menu?: MenuNode,
