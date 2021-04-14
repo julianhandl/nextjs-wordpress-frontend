@@ -1,7 +1,9 @@
 import React from "react";
-import Header from "../Header/Header";
+import Header from "../DesignSystem/Header/Header";
 import { SEOBlock, seoBlockQuery } from "../../common/types/SEOBlock";
 import { MenuMap } from "../../common/types/Menu";
+import Footer from "../DesignSystem/Footer/Footer";
+import WordpressContent from "../DesignSystem/Wordpress/Content/Content";
 
 export interface PostSingleQuery {
 	title: string;
@@ -42,9 +44,10 @@ const PostSingle: React.FC<PostSingleProps> = ({
 		<Header menu={menus["MAIN_MENU"]} uri={uri} />
 		<article>
 			<h1>{post.title}</h1>
-			{post.excerpt ? <div dangerouslySetInnerHTML={{__html: post.excerpt}}></div> : null}
-			<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+			{post.excerpt ? <WordpressContent content={post.excerpt} /> : null}
+			<WordpressContent content={post.content} />
 		</article>
+		<Footer />
 	</>
 }
 

@@ -1,7 +1,9 @@
 import React from "react";
-import Header from "../Header/Header";
+import Header from "../DesignSystem/Header/Header";
 import { SEOBlock, seoBlockQuery } from "../../common/types/SEOBlock";
 import { MenuMap } from "../../common/types/Menu";
+import Footer from "../DesignSystem/Footer/Footer";
+import WordpressContent from "../DesignSystem/Wordpress/Content/Content";
 
 export interface PageSingleQuery {
 	title: string;
@@ -33,8 +35,9 @@ const PageSingle: React.FC<PageSingleProps> = ({
 		<Header menu={menus["MAIN_MENU"]} uri={uri} />
 		<article>
 			<h1>{page.title}</h1>
-			<div dangerouslySetInnerHTML={{ __html: page.content }}></div>
+			<WordpressContent content={page.content} />
 		</article>
+		<Footer />
 	</>
 }
 

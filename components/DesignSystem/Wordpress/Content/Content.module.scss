@@ -1,0 +1,27 @@
+@import "../../variables.scss";
+
+.content {
+    // layout
+    :global(.wp-block-columns) {
+        display: flex;
+        flex-direction: column;
+
+        @media screen and (min-width: $screen-md) {
+            flex-direction: row;
+        }
+
+        :global(.wp-block-column) {
+            flex: 1;
+        }
+    }
+
+    // images
+    :global(.wp-block-image) {
+        max-width: 100%;
+        margin: 0;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

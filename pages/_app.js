@@ -1,5 +1,5 @@
 import Head from 'next/head'
-// import "../global.scss";
+import "../components/DesignSystem/global.scss";
 
 function MyApp({ Component, pageProps }) {
   return <>
