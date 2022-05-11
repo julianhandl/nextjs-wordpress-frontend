@@ -1,97 +1,94 @@
-# Next.js Wordpress Frontend
-A preconfigured [Next.js](https://nextjs.org/) setup to be used as frontend for a Wordpress website.
 
-This setup that is meant to be extended by you. It takes tasks like fetching pages and posts from wordpress or handling permalinks and internal links of your shoulders. It will mirror your wordpress instance with it's permanlink structure.
 
-***This is not a wordpress theme or any form of finished frontend for your website.***
+# Nwf
 
-## Supports
-- Pages
-- Posts
-- Categories
-- Frontpage
-- Postspage
-- Sitemap
+This project was generated using [Nx](https://nx.dev).
 
-### Supporting inline links
-Inline links in texts are not supported out of the box.
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
-To add support, use a wordpress plugin like this one: [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/)
+🔎 **Smart, Fast and Extensible Build System**
 
-Next.js is configured too forward all ```/wp-content/*``` requests to the actual wordpress instance while keeping the client on the frontend.
+## Adding capabilities to your workspace
 
-## Quickstart
+Nx supports many plugins which add capabilities for developing different types of applications and different tools.
 
-```
-git clone git@github.com:julianhandl/nextjs-wordpress-frontend.git
-cd nextjs-wordpress-frontend
-yarn install
-yarn run dev
-```
+These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
 
-### Requirements
-- a working Wordpress instance
-- set the permalink structure to ***Postname***
-- the plugin [WP GraphQL](https://wordpress.org/plugins/wp-graphql/) installed
-- the plugin [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/) installed
-- the plugin [WPGraphQL Yoast SEO Addon](https://wordpress.org/plugins/wordpress-seo/) installed
+Below are our core plugins:
 
-#### Optional but recommended
-- the plugin [Make Paths Relative](https://wordpress.org/plugins/make-paths-relative/) installed
-- [The matching wordpress theme for this setup](https://github.com/julianhandl/Nextjs-Wordpress-Theme) installed
+- [React](https://reactjs.org)
+  - `npm install --save-dev @nrwl/react`
+- Web (no framework frontends)
+  - `npm install --save-dev @nrwl/web`
+- [Angular](https://angular.io)
+  - `npm install --save-dev @nrwl/angular`
+- [Nest](https://nestjs.com)
+  - `npm install --save-dev @nrwl/nest`
+- [Express](https://expressjs.com)
+  - `npm install --save-dev @nrwl/express`
+- [Node](https://nodejs.org)
+  - `npm install --save-dev @nrwl/node`
 
-#### Environment variables
-You have to create a ```.env.local``` file at the root.
+There are also many [community plugins](https://nx.dev/community) you could add.
 
-Specify the following variables inside the file:
-- ```WP_URL```: The full adress of your wordpress instance
-- ```DOMAIN```: The domain of your frontend 
+## Generate an application
 
-The file might look like this:
-```
+Run `nx g @nrwl/react:app my-app` to generate an application.
 
-WP_URL=https://yourwordpressinstance.com
-DOMAIN=https://yourdomain.com
+> You can use any of the plugins above to generate applications as well.
 
-```
-## FAQ
-### Why are we limited to Yoast SEO?
-Yoast SEO currently offers the best integration with graphql.
+When using Nx, you can create multiple applications and libraries in the same workspace.
 
-### How the inline link problem is solved
-Chances are high that your backend is accessable via a different domain. For example:
-- Frontend: mydomain.com
-- Backend: data.mydomain.com
+## Generate a library
 
-While all page, post, ... links are parsed and work perfectly we do not parse links and image src attributes inside the content editor. If you link a page inside the content editor, wordpress uses the absolute link that includes the domain. If your customer clicks this link in your frontend he will leave the frontend and open the backend since the domain of your backend is baked in.
+Run `nx g @nrwl/react:lib my-lib` to generate a library.
 
-With root-relative urls we solve this problem since the domain gets stripped from the link and instead of ```http://mydomain.com/about``` we get ```/about``` which will keep the client on our frontend. Initially this will break inline images, files, ... since they refer to resources on the backend.
+> You can also use any of the plugins above to generate libraries as well.
 
-```http://data.mydomain.com``` + ```/wp-content/file.txt``` exists within the backend.
-```http://mydomain.com``` + ```/wp-content/file.txt``` does not exists because the link stays on the frontend.
+Libraries are shareable across libraries and applications. They can be imported from `@nwf/mylib`.
 
-This Next.js setup is configured to proxy all ```/wp-content/*``` requests to the wordpress backend. That way the user stays ***on the frontend** at all times and we maintain all links usable even if they are files or images within the backend.
+## Development server
 
-## Folder structure
-### ```pages```
-The ```pages``` folder holds all pages and includes a catch all route. If your are using plain Wordpress you will not have to touch this. You might need to extend the catch all route if you use custom types or special templates.
+Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
-### ```components```
-This folder holds all our code. For scalability reasons all dependencies and styles should only point inwards. There's only one exception which is the ```DesignSystem``` folder.
+## Code scaffolding
 
-#### ```DesignSystem```
-This folder contains all reusable components that are part of a fixed design system. extend as you like. It's prefilled with a header, footer and the basics like a container class.
+Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
 
-### ```Page```
-This folder contains everything about pages. The query and also the component that renders a single page.
+## Build
 
-### ```Post```
-This folder contains everything about posts. A single post, a posts page, post categories and category pages.
+Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-### How to extend
-Most of the time you just want to change the way pages and posts render. You can extend the components and design system however you like.
+## Running unit tests
 
-For custom types you may want to create another folder inside the ```components``` folder that's named after your type and follows the same rules as posts. You will also have to extend the catch all route inside the ```pages``` folder to get the paths as query your data. A detailed explaination will follow. Feel free to reach out or create an issue if you have any questions.
+Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
 
-## Further development
-This is nothing more than a Next.js setup so you can extend it however you like.
+Run `nx affected:test` to execute the unit tests affected by a change.
+
+## Running end-to-end tests
+
+Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+
+Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+
+## Understand your workspace
+
+Run `nx graph` to see a diagram of the dependencies of your projects.
+
+## Further help
+
+Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+
+## ☁ Nx Cloud
+
+### Distributed Computation Caching & Distributed Task Execution
+
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+
+Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+
+Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+
+Visit [Nx Cloud](https://nx.app/) to learn more.

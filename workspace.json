@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "wordpress-frontend": "apps/wordpress-frontend",
+    "wordpress-frontend-e2e": "apps/wordpress-frontend-e2e"
+  }
+}

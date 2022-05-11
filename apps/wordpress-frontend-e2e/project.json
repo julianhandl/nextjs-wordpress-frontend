@@ -1,0 +1,27 @@
+{
+  "sourceRoot": "apps/wordpress-frontend-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/wordpress-frontend-e2e/cypress.json",
+        "devServerTarget": "wordpress-frontend:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "wordpress-frontend:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/wordpress-frontend-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["wordpress-frontend"]
+}
