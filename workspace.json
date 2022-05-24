@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "design-system": "libs/design-system",
+    "wordpress-driver": "libs/wordpress-driver",
     "wordpress-frontend": "apps/wordpress-frontend",
     "wordpress-frontend-e2e": "apps/wordpress-frontend-e2e"
   }

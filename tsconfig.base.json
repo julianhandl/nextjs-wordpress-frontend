@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nwf/design-system": ["libs/design-system/src/index.ts"],
+      "@nwf/wordpress-driver": ["libs/wordpress-driver/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
