@@ -1,4 +1,4 @@
-import { WordpressPathService } from "@nwf/wordpress-driver";
+import { WordpressDriver } from "@nwf/wordpress-driver";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 export interface DynamicPathProps {
@@ -19,8 +19,8 @@ export const getStaticProps: GetStaticProps<DynamicPathProps> = async ({params})
 	const uriString = typeof path === "string" ? path : path.join("/");
 	const uri = `/${uriString}/`;
 
-    const service = new WordpressPathService(process.env.WP_URL);
-    const data = await service.getPathObject(uri)
+    const driver = new WordpressDriver(process.env.WP_URL);
+    const data = await driver.getPath(uri)
 
     return {
         props: {
@@ -31,8 +31,8 @@ export const getStaticProps: GetStaticProps<DynamicPathProps> = async ({params})
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const service = new WordpressPathService(process.env.WP_URL);
-    const allPaths = await service.getAllPaths();
+    const driver = new WordpressDriver(process.env.WP_URL);
+    const allPaths = await driver.getAllPaths();
 
 	return {
 		paths: allPaths,

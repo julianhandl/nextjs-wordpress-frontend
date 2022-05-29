@@ -1,4 +1,4 @@
-import { PathType } from "../data/path/path.enum";
+import { PathType } from "../path/path.resource";
 
 export interface WordpressPage {
     pathType: PathType.Page;
