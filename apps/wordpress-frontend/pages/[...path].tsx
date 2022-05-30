@@ -1,14 +1,17 @@
-import { WordpressDriver } from "@nwf/wordpress-driver";
+import { PathObject, PathObjectData, WordpressDriver } from "@nwf/wordpress-driver";
 import { GetStaticPaths, GetStaticProps } from "next";
 
 export interface DynamicPathProps {
-    data: any;
+    path: PathObject<PathObjectData>;
 }
 
 export const renderPage = (props: DynamicPathProps) => {
+    console.log("page props", props);
+
+    const pathObject = props.path.data;
+
     return <div>
-        <h1>Page</h1>
-        <pre>{JSON.stringify(props)}</pre>
+        <h1>Page {pathObject.title}</h1>
     </div>
 };
 
@@ -17,14 +20,14 @@ export default renderPage;
 export const getStaticProps: GetStaticProps<DynamicPathProps> = async ({params}) => {
 	const path = params?.path || "";
 	const uriString = typeof path === "string" ? path : path.join("/");
-	const uri = `/${uriString}/`;
+	const uri = `/${uriString}${uriString ? '/' : ''}`;
 
     const driver = new WordpressDriver(process.env.WP_URL);
     const data = await driver.getPath(uri)
 
     return {
         props: {
-            data
+            path: data
         },
         revalidate: 1
     }

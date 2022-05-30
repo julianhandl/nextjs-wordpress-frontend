@@ -1,7 +1,7 @@
 import { EnumType } from "json-to-graphql-query";
 
 export interface PostResponseObject {
-    pages: {
+    posts: {
         nodes: {
             id: string;
             title: string;

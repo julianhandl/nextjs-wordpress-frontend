@@ -1,5 +1,7 @@
 import { jsonToGraphQLQuery } from 'json-to-graphql-query';
+import { generateWordpressPage, WordpressPage } from './page/page.model';
 import { buildPageQueryObject, PageResponseObject } from './page/page.resource';
+import { generatePathObject, PathObject, PathObjectData } from './path/path.model';
 import {
     allPathsQuery,
     AllPathsResponse,
@@ -7,6 +9,7 @@ import {
     GetUriTypeResponse,
     PathType,
 } from './path/path.resource';
+import { generateWordpressPost, WordpressPost } from './post/post.model';
 import { buildPostQueryObject, PostResponseObject } from './post/post.resource';
 import { WordpressResource } from './wordpress.resource';
 
@@ -78,16 +81,14 @@ export class WordpressDriver {
         }
     };
 
-    async getPath(path: string): Promise<any> {
+    async getPath(path: string): Promise<PathObject<PathObjectData> | undefined> {
         const pathTypeResult = await this.getPathType(path);
 
         if (pathTypeResult.id >= 0) {
             switch (pathTypeResult.type) {
                 case PathType.Page: {
                     const pageQuery = buildPageQueryObject(pathTypeResult.id);
-                    const result = await this.wordpressResource.get<{
-                        query: PageResponseObject
-                    }>(
+                    const result = await this.wordpressResource.get<PageResponseObject>(
                         jsonToGraphQLQuery({
                             query: {
                                 ...pageQuery,
@@ -95,13 +96,16 @@ export class WordpressDriver {
                         })
                     );
 
-                    return result;
+                    const page = generateWordpressPage(result);
+                    const pathObject = generatePathObject(
+                        page
+                    );
+
+                    return pathObject;
                 }
                 case PathType.Post: {
                     const postQuery = buildPostQueryObject(pathTypeResult.id);
-                    const result = await this.wordpressResource.get<{
-                        data: PostResponseObject
-                    }>(
+                    const result = await this.wordpressResource.get<PostResponseObject>(
                         jsonToGraphQLQuery({
                             query: {
                                 ...postQuery,
@@ -109,7 +113,12 @@ export class WordpressDriver {
                         })
                     );
 
-                    return result;
+                    const post = generateWordpressPost(result);
+                    const pathObject = generatePathObject(
+                        post
+                    )
+
+                    return pathObject;
                 }
                 /*
                 case PathType.Category: {
