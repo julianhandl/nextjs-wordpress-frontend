@@ -1,5 +1,5 @@
 const WPAPI = require("wpapi");
-var wp = new WPAPI({ endpoint: "https://julianhandl.at/wp-json" });
+var wp = new WPAPI({ endpoint: "https://lengbachhof.wikinger-festival.at" });
 
 wp.pages()
   .slug("test")

@@ -1,3 +1,3 @@
 const Footer: React.FC = () => {
-  return <footer></footer>;
+  return <footer>Footer</footer>;
 };

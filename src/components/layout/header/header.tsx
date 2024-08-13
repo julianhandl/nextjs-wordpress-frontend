@@ -1,3 +1,3 @@
 const Header: React.FC = () => {
-  return <header></header>;
+  return <header>Header</header>;
 };

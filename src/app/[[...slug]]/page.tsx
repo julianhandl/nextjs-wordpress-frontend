@@ -1,16 +1,25 @@
+import RootLayout from "@/app/layout";
 import { PageTemplate } from "@/components/templates/page";
 import { PostTemplate } from "@/components/templates/post";
-import { PostArchiveTemplate } from "@/components/templates/post-archive";
+import { getPathObject } from "@/driver/driver";
 
-export default function Page({ params }: { params: { slug: string } }) {
-  const pageType = "";
+export default async function Page({ params }: { params: { slug: string[] } }) {
+  return <RootLayout>{await getPage(params.slug)}</RootLayout>;
+}
 
-  switch (pageType) {
+async function getPage(slug: string[]) {
+  const pathObject = await getPathObject(slug);
+
+  switch (pathObject?.type) {
     case "page":
-      return <PageTemplate />;
+      return <PageTemplate page={pathObject.data} />;
     case "post":
-      return <PostTemplate />;
+      return <PostTemplate post={pathObject.data} />;
+    default:
+      return <div>Unknown</div>;
+    /*
     case "post-archive":
       return <PostArchiveTemplate />;
+    */
   }
 }
