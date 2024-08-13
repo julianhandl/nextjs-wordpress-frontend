@@ -1,3 +1,3 @@
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   return <footer>Footer</footer>;
 };

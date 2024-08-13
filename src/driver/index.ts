@@ -1,3 +1,4 @@
+import { YoastMetadata } from "@/driver/yoast.model";
 import {
   WP_REST_API_Page,
   WP_REST_API_Pages,
@@ -7,7 +8,7 @@ import {
 import WPAPI from "wpapi";
 
 var wp = new WPAPI({
-  endpoint: "https://lengbachhof.wikinger-festival.at/wp-json",
+  endpoint: `${process.env.WP_URL}/wp-json`,
 });
 
 export async function getPathObject(path: string[]) {
@@ -20,15 +21,19 @@ export async function getPathObject(path: string[]) {
   return pageOrPostData;
 }
 
+type BaseData = {
+  yoast?: YoastMetadata;
+};
+
 type PageOrPostData =
-  | {
+  | (BaseData & {
       type: "page";
       data: WP_REST_API_Page;
-    }
-  | {
+    })
+  | (BaseData & {
       type: "post";
       data: WP_REST_API_Post;
-    };
+    });
 
 async function getPageOrPost(
   slug: string,
@@ -45,6 +50,7 @@ async function getPageOrPost(
     return {
       type: "page",
       data: pageResponse[0],
+      yoast: pageResponse[0]?.yoast_head_json as YoastMetadata | undefined,
     };
   }
 
@@ -54,12 +60,13 @@ async function getPageOrPost(
     postRequest.param("parent", parentId);
   }
   const postResponse: WP_REST_API_Posts = await postRequest;
-  console.log(postResponse);
+  console.log("post", postResponse);
 
   if (postResponse?.length > 0) {
     return {
       type: "post",
       data: postResponse[0],
+      yoast: postResponse[0]?.yoast_head_json as YoastMetadata | undefined,
     };
   }
 
